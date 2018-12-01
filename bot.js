@@ -1,48 +1,31 @@
 const Discord = require("discord.js");
-  const kboosh = new Discord.Client();
-    const kbooshtoken = 
-      kboosh.on('ready', () => {
-        kboosh.user.setGame(`Mine Alts`,'https://www.twitch.tv/TEST-Broadcast');
-          console.log('Im Ready!');
-  
-        });
-
-  kboosh.on('message', message => {
-    if (message.content.split(' ')[0] == '%k')
-       message.guild.members.forEach( member => {
-         if (!message.member.hasPermission("ADMINISTRATOR"))  return;
-
-
-           member.send( `${member} ! ` + "**" + message.guild.name + " : ** " + message.content.substr(3));
-                                                      message.delete();
-            
-                                                    });
-            
-                                                  });
-   kboosh.on("message", message => {
-       var prefix = "%";
- 
-             var args = message.content.substring(prefix.length).split(" ");
-                if (message.content.startsWith(prefix + "b")) {
-                          if (!message.member.hasPermission("ADMINISTRATOR"))  return;
-
-                          if (!args[1]) {
-                            
-                                 let embed3 = new Discord.RichEmbed()
-                                     .setDescription(":white_check_mark: | تم ارسال رسالة لا يوجد فيها شيء")
-                                       .setColor("#FF00FF")
-                                          message.channel.sendEmbed(embed3);
-                            
-                                        } else {
-
-                            
-                                           let embed4 = new Discord.RichEmbed()
-                                                            .setDescription(':white_check_mark: | تم ارسال الرساله للجميع ..')
-                                                                .setColor("#99999")
-                               
-                                                                message.channel.sendEmbed(embed4);
-                                                      message.delete();
-                            }
-                          }
+const client = new Discord.Client();
+client.on('ready', () => {
+  client.user.setGame(`on 0 servers | *help | By Suhaib #4272 .`,'');
+  console.log('---------------');
+  console.log(' Bot Is Online')
+  console.log('---------------')
 });
-kboosh.login(process.env.BOT_TOKEN);
+client.on('message', message => {
+   let embed = new Discord.RichEmbed()
+
+    let args = message.content.split(' ').slice(1).join(' ');
+     if(!message.channel.guild) return;
+if(message.content.split(' ')[0] == '*bc') {
+         message.react("✔️")
+          let embed = new Discord.RichEmbed()
+    .setColor("#FF00FF")
+    .setThumbnail(message.author.avatarURL)   
+                                      .addField('تم الارسال بواسطة :', "<@" + message.author.id + ">")
+                 message.channel.sendEmbed(embed);
+        message.guild.members.forEach(m => {
+            var bc = new Discord.RichEmbed()
+.addField('**● Sender  :**', `*** → ${message.author.username}#${message.author.discriminator}***`)
+            .addField('***● Server  :***', `*** → ${message.guild.name}***`)               
+    .setColor('#ff0000')
+                 .addField('ّ', args)
+            m.send(``,{embed: bc});
+        });
+    }
+})
+client.login(process.env.BOT_TOKEN);
